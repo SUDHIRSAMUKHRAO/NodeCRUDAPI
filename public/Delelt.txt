@@ -1,0 +1,54 @@
+/ Retrieve all users 
+app.get('/ProductInfo', function (req, res) {
+  connection.query('SELECT * FROM productinfo', function (error, results, fields) {
+  if (error) throw error;
+  return res.send({ error: false, data: results, message: 'All information of ProductInfo .' });
+  });
+  });
+
+  // Retrieve user with id 
+  
+// Retrieve user with id 
+app.get('/ProductInfo/:id', function (req, res) {
+  let ProductId = req.params.id;
+  if (!ProductId) {
+  return res.status(400).send({ error: true, message: 'Please provide ProductId' });
+  }
+  connection.query('SELECT * FROM ProductInfo where ProductId =?', ProductId, function (error, results, fields) {
+  if (error) throw error;
+  return res.send({ error: false, data: results[0], message: 'PRODUCTID.' });
+  });
+  });
+
+
+  // Add a new user  
+app.post('/ProductInfo', function (req, res) {
+  console.log(req.body);
+  let ProductInfo = req.body;
+  console.log(ProductInfo)
+  if (!ProductInfo) {
+
+  return res.status(400).send({ error:true, message: 'Please provide product' });
+  }
+  
+  connection.query("INSERT INTO  ProductInfo SET ? ", {  ProductName : ProductInfo.ProductName, 
+    CategoryId : ProductInfo.CategoryId, CategoryName : ProductInfo.CategoryName }, function (error, results, fields) {
+  if (error)
+  {
+    console.log(error)
+    return res.send({ error: true, data: results, message: 'Something went wrong.' });
+    throw error;
+  }
+  return res.send({ error: false, data: results, message: 'New product has been created successfully.' });
+  });
+  });
+  
+
+  //  Update user with id
+  
+
+
+
+  //Establish the server connection
+//PORT ENVIRONMENT VARIABLE
+//const port = process.env.PORT || 3000;
