@@ -47,7 +47,7 @@ app.get('/ProductInfo', function (req, res) {
 app.post('/ProductInfo', function (req, res) {
 	console.log(req.body);
 
-	connection.query("INSERT INTO  ProductInfo SET ? ", req.body, function (error, results, fields) {
+	connection.query("INSERT INTO  ProductInfo SET ? ", req.body, function (error, results, fields)=> {
 		if (error) {
 			console.log(error)
 
